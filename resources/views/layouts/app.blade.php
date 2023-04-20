@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="http://localhost:6001/socket.io/socket.io.js"></script>
 </head>
 <body>
     <div id="app">
@@ -79,5 +80,6 @@
             @yield('content')
         </main>
     </div>
+    <script src="http://localhost:6001/socket.io/socket.io.js"></script>
 </body>
 </html>
