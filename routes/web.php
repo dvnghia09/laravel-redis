@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Events\NewMessage;
+use App\Http\Controllers\Messages;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +16,22 @@ use App\Events\NewMessage;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/test-event', function() {
-        broadcast(new NewMessage(auth()->user()));
-        echo "ok";
-    })->name('user');
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('/', function () {
+        return view('welcome')->with('authUser', Auth::user());
+    });
+
+    Route::post('/test-event', [Messages::class, 'storeMessage'])->name('message-store');
+
+
+    // Route::get('/messages', 'MessageController@index')->middleware('auth');
+
+    // Route::post('/messages', 'MessageController@store')->middleware('auth');
 });

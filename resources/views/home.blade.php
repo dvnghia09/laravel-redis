@@ -16,6 +16,11 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+                <form action="/test-event" method="post">
+                    @csrf
+                    <input type="text" name="content">
+                    <button>Send</button>
+                </form>
             </div>
         </div>
     </div>

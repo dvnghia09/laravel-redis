@@ -116,6 +116,15 @@ return [
     | such as APC or Memcached. Laravel makes it easy to dig right in.
     |
     */
+    'broadcasting' => [
+        'default' => 'redis',
+        'connections' => [
+            'redis' => [
+                'driver' => 'redis',
+                'connection' => 'default',
+            ],
+        ],
+    ],
 
     'redis' => [
 
