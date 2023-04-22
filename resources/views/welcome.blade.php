@@ -60,9 +60,9 @@
     </style>
 </head>
 <body>
-    <div id="app">
+    <!-- <div id="app">
         <example-component :auth-user="{{ json_encode($authUser) }}"></example-component>
     </div>
-    <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="{{ asset('js/app.js') }}" ></script> -->
 </body>
 </html>
