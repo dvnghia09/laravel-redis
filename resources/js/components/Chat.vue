@@ -49,12 +49,7 @@
 <script>
     import axios from 'axios'
     export default {
-        props: {
-            authUser: {
-                type: Object,
-                required: true
-            }
-        },
+        name: 'Chat',
         data() {
             return {
                 user: {},
@@ -63,34 +58,32 @@
             }
         },
         mounted() {
-            console.log('Component mounted.');
+            console.log(this.$authUser);
             window.Echo.private('chat')
                 .listen('NewMessage', (data) => {
-                    document.getElementById('noti').play();
+                    // document.getElementById('noti').play();
                     this.messages.push(data)
 
                 })
         },
         methods:{
              add(){
-                console.log(this.authUser);
+                this.messages.push({                    
+                    'message': this.content,
+                    'user' : this.$authUser,
+                })
                 axios.post('/test-event', {                    
                     'content': this.content,
-                    'user' : this.authUser,
                 }, {
                     headers: {
                         'X-Socket-ID': window.Echo.socketId()
                     }
                 })
-                    .then(response=>{
-                        console.log('Send message successful')
-                        this.messages.push({                    
-                            'message': this.content,
-                            'user' : this.authUser,
-                        })
-                    }).catch(error => {
-                        console.log(error)
-                    })
+                .then(response=>{
+                    console.log('Send message successful')
+                }).catch(error => {
+                    console.log(error)
+                })
         },
         }
     }

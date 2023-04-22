@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Auth;
 //     return (int) $user->id === (int) $id;
 // });
 
-Broadcast::channel('chat', function($user) {
-    return [
-        'id' => $user->id,
-        'name' => $user->name,
-    ];
+Broadcast::channel('room.{id}', function($user, $id) {
+    return true;
 });

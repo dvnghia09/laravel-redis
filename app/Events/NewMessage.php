@@ -11,6 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use App\Models\User;
+use App\Models\Message;
 
 class NewMessage implements ShouldBroadcastNow
 {
@@ -23,9 +24,8 @@ class NewMessage implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct($user, $message)
+    public function __construct(Message $message)
     {
-        $this->user = $user;
         $this->message = $message;
     }
 
@@ -36,11 +36,11 @@ class NewMessage implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('chat');
+        return new PrivateChannel('room.'.$this->message->room);
     }
 
-    public function broadcastWith()
-    {
-        return ['message' => $this->message, 'user' => $this->user];
-    }
+    // public function broadcastWith()
+    // {
+    //     return ['message' => $this->message, 'user' => $this->user];
+    // }
 }
